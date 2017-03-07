@@ -13,6 +13,7 @@ public class HeaterControl {
     	this.s1 = s1_init;
     	this.s2 = s2_init;
     	this.s3 = s3_init;
+    	this.step();
     }
     public void setTC(double  newValue) {  }
     public double getTC() { 
