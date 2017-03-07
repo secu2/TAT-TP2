@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import java.util.Random;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
 
 
 public class HeaterControlTestRandom {
@@ -15,7 +13,8 @@ public class HeaterControlTestRandom {
 	Sensor s1 = Mockito.mock(Sensor.class);
 	Sensor s2 = Mockito.mock(Sensor.class);
 	Sensor s3 = Mockito.mock(Sensor.class);
-	
+	Sensor s1Sup = Mockito.mock(Sensor.class);
+	Sensor s1Inf = Mockito.mock(Sensor.class);
 	
 	@Before public void setUp(){
 		this.randSensorTemp = new Random();
@@ -25,9 +24,7 @@ public class HeaterControlTestRandom {
 	}
 	@Test
 	public void test_alea1() {
-		double t1,t2,t3, lastTemp = 0;
-		boolean lastOn = false;
-		boolean isInit = false;
+		double t1,t2,t3;
 		
 		double[] t_list = new double[] {16,17,18,19,20,21,22,21,20,19,18,17,16};
 		for (double t : t_list) {
@@ -39,52 +36,50 @@ public class HeaterControlTestRandom {
 			Mockito.when(s1.getT()).thenReturn(t1);
 			Mockito.when(s2.getT()).thenReturn(t2);
 			Mockito.when(s3.getT()).thenReturn(t3);
+			Mockito.when(s1Sup.getT()).thenReturn(t1+1);
+			Mockito.when(s1Inf.getT()).thenReturn(t1-1);
 			
-			HeaterControl hc = new HeaterControl(19, s1, s2, s3);
+			HeaterControl hc = new HeaterControl(t, s1, s2, s3);
+			HeaterControl hcSup = new HeaterControl(t, s1Sup, s2, s3);
+			HeaterControl hcInf = new HeaterControl(t, s1Inf, s2, s3);
 			
-			if(isInit && (t1+t2+t3)/3 > lastTemp && !lastOn){
-				assertFalse(hc.getOn());
+			if(!hc.getOn()){
+				assertFalse(hcSup.getOn());
 			}
 			
-			if(isInit && (t1+t2+t3)/3 < lastTemp && lastOn){
-				assertTrue(hc.getOn());
+			if(hc.getOn()){
+				assertTrue(hcInf.getOn());
 			}
-			
-			lastOn = hc.getOn();
-			lastTemp = (t1+t2+t3)/3;
-			isInit = true;
 		}
 	}
 
 	@Test
 	public void test_alea2() {
-		double t1,t2,t3, lastTemp = 0;
-		boolean lastOn = false;
-		boolean isInit = false;
+		double t1,t2,t3, RC;
 
 		for (int i = 0; i < 200; i++) {
-			double RC = randTCTemp.nextDouble()*20+10;
+			RC = randTCTemp.nextDouble()*20+10;
 			t1 = RC+randSensorTemp.nextDouble()-0.5;
 			t2 = RC+randSensorTemp.nextDouble()-0.5;
 			t3 = RC+randSensorTemp.nextDouble()-0.5;
-
+			
 			Mockito.when(s1.getT()).thenReturn(t1);
 			Mockito.when(s2.getT()).thenReturn(t2);
 			Mockito.when(s3.getT()).thenReturn(t3);
+			Mockito.when(s1Sup.getT()).thenReturn(t1+1);
+			Mockito.when(s1Inf.getT()).thenReturn(t1-1);
 			
-			HeaterControl hc = new HeaterControl(15, s1, s2, s3);
+			HeaterControl hc = new HeaterControl(RC, s1, s2, s3);
+			HeaterControl hcSup = new HeaterControl(RC, s1Sup, s2, s3);
+			HeaterControl hcInf = new HeaterControl(RC, s1Inf, s2, s3);
 			
-			if(isInit && (t1+t2+t3)/3 > lastTemp && !lastOn){
-				assertFalse(hc.getOn());
+			if(!hc.getOn()){
+				assertFalse(hcSup.getOn());
 			}
 			
-			if(isInit && (t1+t2+t3)/3 < lastTemp && lastOn){
-				assertTrue(hc.getOn());
+			if(hc.getOn()){
+				assertTrue(hcInf.getOn());
 			}
-			
-			lastOn = hc.getOn();
-			lastTemp = (t1+t2+t3)/3;
-			isInit = true;
 			
 
 			System.out.printf("test alea 2: t=%f  \n", RC);
