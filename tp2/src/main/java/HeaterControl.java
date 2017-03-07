@@ -33,6 +33,6 @@ public class HeaterControl {
     }
 
     public void step() {
-    	this.On = (this.getT1() + this.getT2() + this.getT3())/3 < this.TC ;
+    	this.On = (this.getT1() + this.getT2() + this.getT3())/3 <= this.TC ;
     }
 }
