@@ -44,5 +44,3 @@ public class HeaterControlTest {
 		System.out.printf("ca_chauffe_pas_sil_fait_chaud:  ok.\n");
 	}
 }
-
-}
