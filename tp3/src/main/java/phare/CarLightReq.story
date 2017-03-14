@@ -25,6 +25,26 @@ When during 3s the switch mode is AUTO
 And the light intensity is 65%
 Then the light should be ON
 
+Scenario: REQ_003.2
+Given a car light system
+When the light intensity is 75%
+And the switch mode is AUTO
+Then the light should be OFF
+
+When during 3s the switch mode is AUTO 
+And the light intensity is 65%
+Then the light should be OFF
+
+Scenario: REQ_003.2
+Given a car light system
+When the light intensity is 72%
+And the switch mode is AUTO
+Then the light should be OFF
+
+When during 3s the switch mode is AUTO 
+And the light intensity is 58%
+Then the light should be ON
+
 Scenario: REQ_003.4
 Given a car light system
 When the light intensity is 65%
