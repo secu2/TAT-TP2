@@ -30,6 +30,22 @@ public class CarLightSteps{
 		cl.step(); 
 	}
 
+	@When("during 3s the switch mode is AUTO")
+	public void whenDuring3sTheSwitchModeIsAUTO(){
+		cl.setSwitch(SwitchMode.AUTO);
+		cl.step();
+		wait(cl, 3); //Attendre 3 secondes
+		cl.step();
+	}
+
+	@When("during 2s the switch mode is AUTO")
+	public void whenDuring2sTheSwitchModeIsAUTO(){
+		cl.setSwitch(SwitchMode.AUTO);
+		cl.step();
+		wait(cl, 2); //Attendre 3 secondes
+		cl.step();
+	}
+
 
 	public void wait(CarLight cl,double tw) {
 		double t = 0.0;

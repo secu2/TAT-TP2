@@ -31,7 +31,7 @@ When the light intensity is 72%
 And the switch mode is AUTO
 Then the light should be OFF
 
-When during 3s the switch mode is AUTO 
+When during 3s the switch mode is AUTO
 And the light intensity is 65%
 Then the light should be OFF
 
@@ -41,7 +41,7 @@ When the light intensity is 72%
 And the switch mode is AUTO
 Then the light should be OFF
 
-When during 3s the switch mode is AUTO 
+When during 3s the switch mode is AUTO
 And the light intensity is 58%
 Then the light should be ON
 
@@ -51,7 +51,7 @@ When the light intensity is 65%
 And the switch mode is AUTO
 Then the light should be ON
 
-When during 3s the switch mode is AUTO 
+When during 3s the switch mode is AUTO
 And the light intensity is 72%
 Then the light should be OFF
 
